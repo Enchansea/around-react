@@ -80,16 +80,6 @@ function Main() {
           </div>
         </div>
 
-        <div className="popup popup__picture-section">
-          <div className="popup__content popup__content_theme_transparent">
-            <button className="popup__close-button"></button>
-            <figure>
-              <img className="popup__image" src="#" alt="" />
-              <figcaption className="popup__caption"></figcaption>
-            </figure>
-          </div>
-        </div>
-
         <div className="popup popup__add-image">
           <div className="popup__content">
             <button className="popup__close-button"></button>
