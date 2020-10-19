@@ -2,41 +2,31 @@ import React from 'react';
 
 
 
-function Main() {
 
-  function handleAvatarClick() {
-    const editProfilePic = document.querySelector(".popup__add-image");
-    //console.log(document.querySelector(".popup__add-image"));
-    editProfilePic.classList.add("popup_visible");
-  }
+function Main(props) {
 
-  function handleProfileClick() {
-    const editProfile = document.querySelector(".popup__edit-profile");
-    editProfile.classList.add("popup_visible");
-  }
-
-  function handleAddPlaceClick() {
-    const addPlace = document.querySelector(".popup__add-card");
-    addPlace.classList.add("popup_visible");
-
-  }
+  const [popup, ]
+  const isEditProfilePopupOpen = handleProfileClick();
+  const isAddPlacePopupOpen = handleAddPlaceClick();
+  
 
   return (
+    
     <main>
 
           <section className="profile">
 
             <div className="profile__avatar">
               <img src="../src/images/black.jpg" alt="profile" className="profile__img" />
-              <button className="profile__avatar-overlay" onClick={handleAvatarClick}></button>
+              <button className="profile__avatar-overlay" onClick={props.onEditAvatar}></button>
             </div>
 
             <div className="profile__info">
               <h1 className="profile__name">Cousteau</h1>
               <p className="profile__about">Explorer</p>
-              <button type="button" className="profile__edit-button" onClick={handleProfileClick}></button>
+              <button type="button" className="profile__edit-button" onClick={props.onEditProfile}></button>
             </div>
-            <button className="profile__add-button" onClick={handleAddPlaceClick}></button>
+            <button className="profile__add-button" onClick={props.onAddPlace}></button>
           </section>
 
           <section className="elements">
@@ -61,6 +51,7 @@ function Main() {
             </form>
           </div>
         </div>
+
 
         <div className="popup popup__add-card">
           <div className="popup__content popup__content_card">
