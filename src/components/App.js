@@ -1,41 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './../pages/index.css';
 
 
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
 
 
 
 function App() {
 
+  const [isEditAvatarPopupOpen, setIsEditAvatarOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfileOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
+  //isOpen={isEditProfilePopupOpen, isEditAvatarPopupOpen, isAddPlacePopupOpen}
+
+
   function handleAvatarClick() {
-    const editProfilePic = document.querySelector(".popup__add-image");
-    //console.log(document.querySelector(".popup__add-image"));
-    editProfilePic.classList.add("popup_visible");
+    setIsEditAvatarOpen(true);
   }
 
   function handleProfileClick() {
-    const editProfile = document.querySelector(".popup__edit-profile");
-    editProfile.classList.add("popup_visible");
+    setIsEditProfileOpen(true);
   }
 
   function handleAddPlaceClick() {
-    const addPlace = document.querySelector(".popup__add-card");
-    addPlace.classList.add("popup_visible");
-
+    setIsAddPlacePopupOpen(true);
   }
+
+
 
   return (
     <div className="page">
       <div className="page__content">
         <Header />
-        <Main />
+        <Main
+          onEditAvatar={handleAvatarClick}
+          onEditProfile={handleProfileClick}
+          onAddPlace={handleAddPlaceClick}
+        />
         <Footer />
-
-
-
+        <PopupWithForm
+          name="avatar"
+          title="Change profile picture"
+          children={
+            <>
+            <input id="popup-url" type="url" className="popup__input popup__input_card-url" placeholder="Image link"
+                name="Imagelink" required />
+              <span id="popup-url-error" className="popup__error"></span>
+            </>
+          }
+          isOpen={isEditAvatarPopupOpen}
+        />
 
       </div>
     </div>

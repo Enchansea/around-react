@@ -1,17 +1,14 @@
-import React from 'react';
-
-
-
+import React, {useState} from 'react';
 
 function Main(props) {
 
-  const [popup, ]
-  const isEditProfilePopupOpen = handleProfileClick();
-  const isAddPlacePopupOpen = handleAddPlaceClick();
-  
+  //const [popupOpen, setPopupOpen ] = useState()
+  //const isEditProfilePopupOpen = handleProfileClick();
+  //const isAddPlacePopupOpen = handleAddPlaceClick();
+
 
   return (
-    
+
     <main>
 
           <section className="profile">
