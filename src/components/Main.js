@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 function Main(props) {
 
@@ -50,23 +50,7 @@ function Main(props) {
         </div>
 
 
-        <div className="popup popup__add-card">
-          <div className="popup__content popup__content_card">
-            <button className="popup__close-button"></button>
-            <form action="#" className="popup__form popup__form_card" noValidate>
-              <h3 className="popup__title">New Place</h3>
-              <input id="popup-title" type="text" name="name" className="popup__input popup__input_card-name"
-                placeholder="Title" required maxLength="30" minLength="1" />
-              <span id="popup-title-error" className="popup__error"></span>
-
-              <input id="popup-url" type="url" name="link" className="popup__input popup__input_card-url"
-                placeholder="Image link" required />
-              <span id="popup-url-error" className="popup__error"></span>
-
-              <button type="submit" className="popup__button popup__submit-button popup__card-save">Create</button>
-            </form>
-          </div>
-        </div>
+        
 
         <div className="popup popup__add-image">
           <div className="popup__content">
@@ -80,6 +64,7 @@ function Main(props) {
             </form>
           </div>
         </div>
+        
 
 
         <div className="popup popup__delete-confirm">

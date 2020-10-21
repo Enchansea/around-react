@@ -15,17 +15,13 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfileOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
-  //isOpen={isEditProfilePopupOpen, isEditAvatarPopupOpen, isAddPlacePopupOpen}
-
-
   function handleAvatarClick() {
     setIsEditAvatarOpen(true);
   }
-
   function handleProfileClick() {
+    console.log("this link was clicked");
     setIsEditProfileOpen(true);
   }
-
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
@@ -42,17 +38,23 @@ function App() {
           onAddPlace={handleAddPlaceClick}
         />
         <Footer />
+
         <PopupWithForm
-          name="avatar"
+          name="add-image"
           title="Change profile picture"
           children={
             <>
             <input id="popup-url" type="url" className="popup__input popup__input_card-url" placeholder="Image link"
-                name="Imagelink" required />
-              <span id="popup-url-error" className="popup__error"></span>
+                name="Imagelink" required 
+            />
+            <span id="popup-url-error" className="popup__error"></span>
             </>
           }
           isOpen={isEditAvatarPopupOpen}
+        />
+
+        <PopupWithForm 
+        
         />
 
       </div>
