@@ -31,26 +31,9 @@ function Main(props) {
             </ul>
           </section>
 
-          <div className="popup popup__edit-profile">
-          <div className="popup__content popup__content_profile">
-            <button type="button" className="popup__close-button"></button>
-            <form action="#" className="popup__form popup__form_profile" noValidate>
-              <h3 className="popup__title">Edit Profile</h3>
-              <input id="profile-name" type="text" name="name" className="popup__input popup__input_profile-name"
-                value="Jacques Cousteau" required maxLength="40" minLength="2" />
-              <span id="profile-name-error" className="popup__error"></span>
-
-              <input id="profile-text" type="text" name="about" className="popup__input popup__input_profile-about"
-                value="Explorer" required maxLength="200" minLength="2" />
-              <span id="profile-text-error" className="popup__error"></span>
-
-              <button type="submit" className="popup__button popup__submit-button popup__profile-save">Save</button>
-            </form>
-          </div>
-        </div>
 
 
-        
+
 
         <div className="popup popup__add-image">
           <div className="popup__content">
@@ -64,7 +47,7 @@ function Main(props) {
             </form>
           </div>
         </div>
-        
+
 
 
         <div className="popup popup__delete-confirm">
