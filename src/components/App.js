@@ -6,31 +6,32 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import Input from './Input';
 
 
 
 function App() {
 
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarOpen, setIsEditAvatarOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isAddPlaceOpen, setIsAddPlaceOpen] = useState(false);
 
   function handleAvatarClick() {
     setIsEditAvatarOpen(true);
   }
   function handleProfileClick() {
     console.log("this link was clicked");
-    setIsEditProfilePopupOpen(true);
+    setIsEditProfileOpen(true);
   }
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true);
+    setIsAddPlaceOpen(true);
   }
 
-  function closeAllPopups(e) {
-    if (e.target !== e.currentTarget) return
-    setIsEditAvatarPopupOpen(false);
+  function closeAllPopups(evt) {
+    if (evt.target !== evt.currentTarget) return
+    setIsEditAvatarOpen(false);
     setIsEditProfileOpen(false);
-    setIsAddPlacePopupOpen(false);
+    setIsAddPlaceOpen(false);
   }
 
 
@@ -43,59 +44,27 @@ function App() {
           onEditAvatar={handleAvatarClick}
           onEditProfile={handleProfileClick}
           onAddPlace={handleAddPlaceClick}
+          onClose={closeAllPopups}
         />
         <Footer />
 
-        <PopupWithForm
-          name="add-image"
-          title="Change profile picture"
-          children={
-            <>
-              <input id="popup-url" type="url" className="popup__input popup__input_card-url" placeholder="Image link"
-                name="Imagelink" required
-              />
-              <span id="popup-url-error" className="popup__error"></span>
-            </>
-          }
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-        />
+        {/*Add avatar img popup*/}
+        <PopupWithForm name="add-image" title="Change profile picture" isOpen={isEditAvatarOpen} onClose={closeAllPopups}>
+          <Input id="popup-url" type="url" className="card-url" placeholder="Image link"
+                name="Imagelink" defaultValue=""/>
+        </PopupWithForm>
 
-        <PopupWithForm
-          name="edit-profile"
-          title="Edit Profile"
-          children={
-            <>
-              <input id="profile-name" type="text" name="name" className="popup__input popup__input_profile-name"
-                value="Jacques Cousteau" required maxLength="40" minLength="2" />
-              <span id="profile-name-error" className="popup__error"></span>
+        {/*Edit profile name and about popup*/}
+        <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfileOpen} onClose={closeAllPopups}>
+          <Input id="profile-name" type="text" className="profile-name" name="name" placeholder="Jaques Cousteau" handleChange={() => {console.log("type!!!")}} defaultValue="" />
+          <Input id="profile-text" type="text" className="profile-about" name="link" placeholder="Explorer" handleChange={() => {console.log("type!!!")}} defaultValue="" />
+        </PopupWithForm>
 
-              <input id="profile-text" type="text" name="about" className="popup__input popup__input_profile-about"
-                value="Explorer" required maxLength="200" minLength="2" />
-              <span id="profile-text-error" className="popup__error"></span>
-            </>
-          }
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        />
-
-        <PopupWithForm
-          name="add-card"
-          title="New Place"
-          children={
-            <>
-              <input id="popup-title" type="text" name="name" class="popup__input popup__input_card-name"
-                placeholder="Title" required maxlength="30" minlength="1" />
-              <span id="popup-title-error" class="popup__error"></span>
-
-              <input id="popup-url" type="url" name="link" class="popup__input popup__input_card-url"
-                placeholder="Image link" required />
-              <span id="popup-url-error" class="popup__error"></span>
-            </>
-          }
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-        />
+          {/*Add-card popup with card name and url */}
+        <PopupWithForm name="add-card" title="New Place" buttonText ="Create" isOpen={isAddPlaceOpen} onClose={closeAllPopups}>
+          <Input id="popup-title" type="text" className="card-name" name="name" placeholder="Title" handleChange={() => {console.log("type!!!")}} defaultValue="" />
+          <Input id="popup-url" type="url" className="card-url" name="link" placeholder="Image link" handleChange={() => {console.log("type!!!")}} defaultValue="" />
+        </PopupWithForm>
 
       </div>
     </div>
