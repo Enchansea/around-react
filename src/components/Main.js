@@ -26,15 +26,17 @@ function Main(props) {
       .then(res => {
         setCards(res.map((card) => ({
           link: card.link,
-          title: card.name
-        })));
+          title: card.name,
+          likes: card.likes
+        })))
 
-        console.log(res)
       })
+      .catch(err => console.log(err));
   }, [])
 
 
   return (
+
 
     <main>
       <section className="profile">
@@ -53,32 +55,23 @@ function Main(props) {
       {/* Card */}
       <section className="elements">
         <ul className="card">
-          <li className="card__group">
-            {
-              cards.map((card, index) =>
-                <Card
-                  key={index}
-                  src={card.link}
-                  title={card.title}
-                />
-              )
-            }
-          </li>
+          {
+            cards.map((card, index) =>
+              <Card
+                key={index}
+                src={card.link}
+                title={card.title}
+                onCardClick={() => props.handleCardClick(card.link, card.title)}
+                likes={card.likes}
+                id={card._id}
+                owner={card.owner}
+                onDeleteClick={() => props.handleDeleteClick(card)}
+              />
+
+            )
+          }
         </ul>
       </section>
-
-
-
-
-      <div className="popup popup__delete-confirm">
-        <div className="popup__content">
-          <button className="popup__close-button"></button>
-          <form className="popup__form">
-            <h3 className="popup__title popup__title-confirm">Are you sure?</h3>
-            <button className="popup__button popup__submit-button" type="submit" value="save">Yes</button>
-          </form>
-        </div>
-      </div>
     </main>
   )
 }

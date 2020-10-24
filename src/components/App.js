@@ -7,6 +7,7 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import Input from './Input';
+import ImagePopup from './ImagePopup';
 
 
 
@@ -15,16 +16,27 @@ function App() {
   const [isEditAvatarOpen, setIsEditAvatarOpen] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isAddPlaceOpen, setIsAddPlaceOpen] = useState(false);
+  const [selectedCard, setSelectedImageOpen] = useState(false);
+  const [selectedCardTitle, setSelectedCardTitle] = useState("");
+  const [selectedCardLink, setSelectedCardLink] = useState("");
+  const [isDeleteOpen, setDeletePopupOpen] = useState(false);
 
   function handleAvatarClick() {
     setIsEditAvatarOpen(true);
   }
   function handleProfileClick() {
-    console.log("this link was clicked");
     setIsEditProfileOpen(true);
   }
   function handleAddPlaceClick() {
     setIsAddPlaceOpen(true);
+  }
+  function handleCardClick(link, title) {
+    setSelectedCardLink(link);
+    setSelectedCardTitle(title);
+    setSelectedImageOpen(true);
+  }
+  function handleDeleteClick() {
+    setDeletePopupOpen(true);
   }
 
   function closeAllPopups(evt) {
@@ -32,6 +44,8 @@ function App() {
     setIsEditAvatarOpen(false);
     setIsEditProfileOpen(false);
     setIsAddPlaceOpen(false);
+    setSelectedImageOpen(false);
+    setDeletePopupOpen(false);
   }
 
 
@@ -44,7 +58,11 @@ function App() {
           onEditAvatar={handleAvatarClick}
           onEditProfile={handleProfileClick}
           onAddPlace={handleAddPlaceClick}
+          onCardClick={(data)=>{handleCardClick(data)}}
+          onDeleteClick={(data)=>{handleDeleteClick(data)}}
           onClose={closeAllPopups}
+          handleCardClick={handleCardClick}
+          handleDeleteClick={handleDeleteClick}
         />
         <Footer />
 
@@ -65,6 +83,12 @@ function App() {
           <Input id="popup-title" type="text" className="card-name" name="name" placeholder="Title" handleChange={() => {console.log("type!!!")}} defaultValue="" />
           <Input id="popup-url" type="url" className="card-url" name="link" placeholder="Image link" handleChange={() => {console.log("type!!!")}} defaultValue="" />
         </PopupWithForm>
+
+        {/*Delete popup*/}
+        <PopupWithForm name="delete-confirm" title="Are you sure?" buttonText="Yes" isOpen={isDeleteOpen} onClose={closeAllPopups}/>
+
+        {/*Image popup*/}
+        <ImagePopup isOpen={selectedCard} onClose={closeAllPopups} title={selectedCardTitle} link={selectedCardLink}/>
 
       </div>
     </div>
