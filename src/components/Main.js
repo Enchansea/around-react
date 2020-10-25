@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from './../utils/Api';
+import api from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
@@ -18,9 +18,6 @@ function Main(props) {
         setUserDescription(res.about);
       })
       .catch(err => console.log(err));
-  })
-
-  useEffect(() => {
 
     api.getCardList()
       .then(res => {
@@ -33,6 +30,8 @@ function Main(props) {
       })
       .catch(err => console.log(err));
   }, [])
+
+
 
 
   return (
