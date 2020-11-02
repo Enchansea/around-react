@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '../utils/Api';
 import '../pages/index.css';
-
-
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import Input from './Input';
 import ImagePopup from './ImagePopup';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
 
@@ -20,6 +20,7 @@ function App() {
   const [selectedCardTitle, setSelectedCardTitle] = useState("");
   const [selectedCardLink, setSelectedCardLink] = useState("");
   const [isDeleteOpen, setDeletePopupOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState("");
 
   function handleAvatarClick() {
     setIsEditAvatarOpen(true);
@@ -38,6 +39,14 @@ function App() {
   function handleDeleteClick() {
     setDeletePopupOpen(true);
   }
+  
+  useEffect(() => {
+    api.getUserInfo()
+      .then(res => {
+        setCurrentUser(res)
+      })
+      .catch(err => console.log(err));
+  })
 
   function closeAllPopups(evt) {
     if (evt.target !== evt.currentTarget) return
@@ -48,7 +57,7 @@ function App() {
     setDeletePopupOpen(false);
   }
 
-
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <div className="page">
