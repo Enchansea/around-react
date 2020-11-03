@@ -22,6 +22,7 @@ function App() {
   const [isDeleteOpen, setDeletePopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
 
+  //console.log("cU", currentUser);
   function handleAvatarClick() {
     setIsEditAvatarOpen(true);
   }
@@ -39,14 +40,15 @@ function App() {
   function handleDeleteClick() {
     setDeletePopupOpen(true);
   }
-  
+
   useEffect(() => {
     api.getUserInfo()
       .then(res => {
         setCurrentUser(res)
+        //console.log(res);
       })
       .catch(err => console.log(err));
-  })
+  }, [])
 
   function closeAllPopups(evt) {
     if (evt.target !== evt.currentTarget) return
@@ -57,50 +59,52 @@ function App() {
     setDeletePopupOpen(false);
   }
 
-  const currentUser = React.useContext(CurrentUserContext);
+
 
   return (
-    <div className="page">
-      <div className="page__content">
-        <Header />
-        <Main
-          onEditAvatar={handleAvatarClick}
-          onEditProfile={handleProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={(data)=>{handleCardClick(data)}}
-          onDeleteClick={(data)=>{handleDeleteClick(data)}}
-          onClose={closeAllPopups}
-          handleCardClick={handleCardClick}
-          handleDeleteClick={handleDeleteClick}
-        />
-        <Footer />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <div className="page__content">
+          <Header />
+          <Main
+            onEditAvatar={handleAvatarClick}
+            onEditProfile={handleProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={(data) => { handleCardClick(data) }}
+            onDeleteClick={(data) => { handleDeleteClick(data) }}
+            onClose={closeAllPopups}
+            handleCardClick={handleCardClick}
+            handleDeleteClick={handleDeleteClick}
+          />
+          <Footer />
 
-        {/*Add avatar img popup*/}
-        <PopupWithForm name="add-image" title="Change profile picture" isOpen={isEditAvatarOpen} onClose={closeAllPopups}>
-          <Input id="popup-url" type="url" className="card-url" placeholder="Image link"
-                name="Imagelink" defaultValue=""/>
-        </PopupWithForm>
+          {/*Add avatar img popup*/}
+          <PopupWithForm name="add-image" title="Change profile picture" isOpen={isEditAvatarOpen} onClose={closeAllPopups}>
+            <Input id="popup-url" type="url" className="card-url" placeholder="Image link"
+              name="Imagelink" defaultValue="" />
+          </PopupWithForm>
 
-        {/*Edit profile name and about popup*/}
-        <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfileOpen} onClose={closeAllPopups}>
-          <Input id="profile-name" type="text" className="profile-name" name="name" placeholder="Jaques Cousteau" handleChange={() => {}} defaultValue="" />
-          <Input id="profile-text" type="text" className="profile-about" name="link" placeholder="Explorer" handleChange={() => {}} defaultValue="" />
-        </PopupWithForm>
+          {/*Edit profile name and about popup*/}
+          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfileOpen} onClose={closeAllPopups}>
+            <Input id="profile-name" type="text" className="profile-name" name="name" placeholder="Jaques Cousteau" handleChange={() => { }} defaultValue="" />
+            <Input id="profile-text" type="text" className="profile-about" name="link" placeholder="Explorer" handleChange={() => { }} defaultValue="" />
+          </PopupWithForm>
 
           {/*Add-card popup with card name and url */}
-        <PopupWithForm name="add-card" title="New Place" buttonText ="Create" isOpen={isAddPlaceOpen} onClose={closeAllPopups}>
-          <Input id="popup-title" type="text" className="card-name" name="name" placeholder="Title" handleChange={() => {}} defaultValue="" />
-          <Input id="popup-url" type="url" className="card-url" name="link" placeholder="Image link" handleChange={() => {}} defaultValue="" />
-        </PopupWithForm>
+          <PopupWithForm name="add-card" title="New Place" buttonText="Create" isOpen={isAddPlaceOpen} onClose={closeAllPopups}>
+            <Input id="popup-title" type="text" className="card-name" name="name" placeholder="Title" handleChange={() => { }} defaultValue="" />
+            <Input id="popup-url" type="url" className="card-url" name="link" placeholder="Image link" handleChange={() => { }} defaultValue="" />
+          </PopupWithForm>
 
-        {/*Delete popup*/}
-        <PopupWithForm name="delete-confirm" title="Are you sure?" buttonText="Yes" isOpen={isDeleteOpen} onClose={closeAllPopups}/>
+          {/*Delete popup*/}
+          <PopupWithForm name="delete-confirm" title="Are you sure?" buttonText="Yes" isOpen={isDeleteOpen} onClose={closeAllPopups} />
 
-        {/*Image popup*/}
-        <ImagePopup isOpen={selectedCard} onClose={closeAllPopups} title={selectedCardTitle} link={selectedCardLink}/>
+          {/*Image popup*/}
+          <ImagePopup isOpen={selectedCard} onClose={closeAllPopups} title={selectedCardTitle} link={selectedCardLink} />
 
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 
