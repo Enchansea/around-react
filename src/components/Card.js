@@ -5,7 +5,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Card(props) {
 
   const currentUser = useContext(CurrentUserContext);
-  console.log(props)
+  //console.log(props)
   //console.log("cu", currentUser)
 
   // Checking to see if I own the current card

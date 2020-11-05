@@ -48,6 +48,7 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, like) {
+    console.log("cardid", cardId)
     if(like) {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         headers: this._headers,
@@ -56,6 +57,7 @@ class Api {
           like
         })
       })
+      .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
     } else {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         headers: this._headers,
