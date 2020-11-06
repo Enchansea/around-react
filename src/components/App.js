@@ -42,11 +42,24 @@ function App() {
     setDeletePopupOpen(true);
   }
 
+  function handleUpdateUser( userInfo ) {
+    api.setUserInfo(userInfo)
+    .then((res) => {
+      console.log("cu", currentUser);
+      setCurrentUser({
+        name: res.name,
+        about: res.about
+      })
+      .then(() => setIsEditProfileOpen(false))
+      .catch(err => console.log(err))
+    })
+
+  }
+
   useEffect(() => {
     api.getUserInfo()
       .then(res => {
         setCurrentUser(res)
-        //console.log(res);
       })
       .catch(err => console.log(err));
   }, [])
@@ -81,14 +94,17 @@ function App() {
           <Footer />
 
           {/*Add avatar img popup*/}
-          <PopupWithForm name="add-image" title="Change profile picture" isOpen={isEditAvatarOpen} onClose={closeAllPopups}>
+          <PopupWithForm name="add-image" title="Change profile picture" buttonText="Save" isOpen={isEditAvatarOpen} onClose={closeAllPopups}>
             <Input id="popup-url" type="url" className="card-url" placeholder="Image link"
               name="Imagelink" defaultValue="" />
           </PopupWithForm>
 
           {/*Edit profile name and about popup*/}
-         
-          <EditProfilePopup isOpen={isEditProfileOpen} onClose={closeAllPopups} />
+
+          <EditProfilePopup
+            isOpen={isEditProfileOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser} />
 
           {/*Add-card popup with card name and url */}
           <PopupWithForm name="add-card" title="New Place" buttonText="Create" isOpen={isAddPlaceOpen} onClose={closeAllPopups}>
