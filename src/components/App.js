@@ -23,6 +23,14 @@ function App() {
   const [isDeleteOpen, setDeletePopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
 
+  useEffect(() => {
+    api.getUserInfo()
+      .then(res => {
+        setCurrentUser(res)
+      })
+      .catch(err => console.log(err));
+  }, [])
+
   //console.log("cU", currentUser);
   function handleAvatarClick() {
     setIsEditAvatarOpen(true);
@@ -42,13 +50,13 @@ function App() {
     setDeletePopupOpen(true);
   }
 
-  function handleUpdateUser( userInfo ) {
-    api.setUserInfo(userInfo)
-    .then((res) => {
-      console.log("cu", currentUser);
+  function handleUpdateUser( name, about ) {
+    api.setUserInfo({name, about})
+    .then(() => {
       setCurrentUser({
-        name: res.name,
-        about: res.about
+        name,
+        about,
+        avatar: currentUser.avatar
       })
       .then(() => setIsEditProfileOpen(false))
       .catch(err => console.log(err))
@@ -56,13 +64,7 @@ function App() {
 
   }
 
-  useEffect(() => {
-    api.getUserInfo()
-      .then(res => {
-        setCurrentUser(res)
-      })
-      .catch(err => console.log(err));
-  }, [])
+
 
   function closeAllPopups(evt) {
     if (evt.target !== evt.currentTarget) return

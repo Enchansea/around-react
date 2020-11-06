@@ -68,6 +68,7 @@ class Api {
 
   //PATCH https://around.nomoreparties.co/v1/group-4/users/me
   setUserInfo({ name, about }) {
+    console.log(name, about)
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "PATCH",
