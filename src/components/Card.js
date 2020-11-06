@@ -5,8 +5,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Card(props) {
 
   const currentUser = useContext(CurrentUserContext);
-  //console.log(props)
-  //console.log("cu", currentUser)
 
   // Checking to see if I own the current card
   const isOwn = props.owner._id === currentUser._id;
@@ -28,8 +26,8 @@ function Card(props) {
 
     <li className="card__group">
       <img className="card__image" src={props.src} alt={props.alt} onClick={props.onCardClick}/>
-      <button className={cardDeleteButtonClassName} onClick={props.onDeleteClick}></button>
-      <h2 className="card__title">{props.title}</h2>
+      <button className={cardDeleteButtonClassName} onClick={props.onDeleteClick} onClick={props.onCardDelete}></button>
+      <h2 className="card__title">{props.name}</h2>
       <button className={cardLikeButtonClassName} onClick={props.onCardLike}></button>
       <h5 className="card__like-count">{props.likes.length}</h5>
     </li>

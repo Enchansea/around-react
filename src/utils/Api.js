@@ -48,7 +48,6 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, like) {
-    console.log("cardid", cardId)
     if(like) {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         headers: this._headers,
@@ -66,24 +65,6 @@ class Api {
       .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
     }
   }
-
-  //PUT https://around.nomoreparties.co/v1/group-4/cards/likes/cardId
-  // cardLike(cardId) {
-  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-  //     headers: this._headers,
-  //     method: "PUT"
-  //   })
-  //     .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-  // }
-  //DELETE https://around.nomoreparties.co/v1/group-4/cards/likes/cardId
-  // cardUnlike(cardId) {
-  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-  //     headers: this._headers,
-  //     method: "DELETE"
-  //   })
-  //     .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
-  // }
-
 
   //PATCH https://around.nomoreparties.co/v1/group-4/users/me
   setUserInfo({ name, about }) {

@@ -7,6 +7,7 @@ import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import Input from './Input';
 import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
@@ -67,6 +68,7 @@ function App() {
         <div className="page__content">
           <Header />
           <Main
+            //passed into Main.js
             onEditAvatar={handleAvatarClick}
             onEditProfile={handleProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -85,10 +87,8 @@ function App() {
           </PopupWithForm>
 
           {/*Edit profile name and about popup*/}
-          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfileOpen} onClose={closeAllPopups}>
-            <Input id="profile-name" type="text" className="profile-name" name="name" placeholder="Jaques Cousteau" handleChange={() => { }} defaultValue="" />
-            <Input id="profile-text" type="text" className="profile-about" name="link" placeholder="Explorer" handleChange={() => { }} defaultValue="" />
-          </PopupWithForm>
+         
+          <EditProfilePopup isOpen={isEditProfileOpen} onClose={closeAllPopups} />
 
           {/*Add-card popup with card name and url */}
           <PopupWithForm name="add-card" title="New Place" buttonText="Create" isOpen={isAddPlaceOpen} onClose={closeAllPopups}>

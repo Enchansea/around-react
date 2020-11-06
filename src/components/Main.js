@@ -13,10 +13,10 @@ function Main(props) {
         //console.log("res", res)
         setCards(res.map((card) => ({
           link: card.link,
-          title: card.name,
+          name: card.name,
           likes: card.likes,
           owner: card.owner,
-          id: card._id
+          _id: card._id
         })))
 
       })
@@ -25,10 +25,8 @@ function Main(props) {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    //console.log("cid", card.id)
-    api.changeLikeCardStatus(card.id, !isLiked).then((newCard) => {
-      const newCards = cards.map((c) => c.id === card.id ? newCard : c);
-      console.log("here", newCards);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       setCards(newCards);
     })
     .catch(err => console.log(err));
@@ -61,14 +59,15 @@ function Main(props) {
           {
             cards.map((card, index) =>
               <Card
+              //passed into Card.js
                 key={index}
                 src={card.link}
-                title={card.title}
-                onCardClick={() => props.handleCardClick(card.link, card.title)}
+                name={card.name}
+                onCardClick={() => props.handleCardClick(card.link, card.name)}
                 likes={card.likes}
-                id={card.id}
+                _id={card._id}
                 owner={card.owner}
-                onCardDelete={() => props.handleCardDelete(card)}
+                onCardDelete={() => handleCardDelete(card)}
                 onDeleteClick={() => props.handleDeleteClick(card)}
                 onCardLike={() => handleCardLike(card)}
               />
