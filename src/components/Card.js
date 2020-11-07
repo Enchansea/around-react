@@ -22,13 +22,21 @@ function Card(props) {
     `card__like-button ${isLiked ? 'card__like-button_clicked' : 'card__like-button'}`
   )
 
+  function handleLikeClick() {
+    props.onCardLike(props.card);
+  }
+
+  function handleDeleteClick() {
+    props.onCardDelete(props.card)
+  }
+
   return (
 
     <li className="card__group">
-      <img className="card__image" src={props.src} alt={props.alt} onClick={props.onCardClick}/>
-      <button className={cardDeleteButtonClassName} onClick={props.onDeleteClick} onClick={props.onCardDelete}></button>
+      <img className="card__image" src={props.src} alt={props.alt} onClick={props.onCardClick} />
+      <button className={cardDeleteButtonClassName} onClick={handleDeleteClick}></button>
       <h2 className="card__title">{props.name}</h2>
-      <button className={cardLikeButtonClassName} onClick={props.onCardLike}></button>
+      <button className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
       <h5 className="card__like-count">{props.likes.length}</h5>
     </li>
 

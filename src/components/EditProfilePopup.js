@@ -18,15 +18,15 @@ function EditProfilePopup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onUpdateUser({
+    props.onUpdateUser(
       name,
-      about: description
-    });
+      description
+    );
   }
 
     return (
         <PopupWithForm name="edit-profile" title="Edit Profile" buttonText="Save" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
-            <Input id="profile-name" type="text" className="profile-name" name="Name" handleChange={handleNameChange} defaultValue={currentUser.name} />
+            <Input id="profile-name" type="text" className="profile-name" name="name" handleChange={handleNameChange} defaultValue={currentUser.name} />
             <Input id="profile-text" type="text" className="profile-about" name="about" handleChange={handleDescriptionChange} defaultValue={currentUser.about} />
         </PopupWithForm>
     )

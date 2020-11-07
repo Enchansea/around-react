@@ -1,42 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import api from '../utils/Api';
+import React, { useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [cards, setCards] = useState([]);
+
   const currentUser = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    api.getCardList()
-      .then(res => {
-        //console.log("res", res)
-        setCards(res.map((card) => ({
-          link: card.link,
-          name: card.name,
-          likes: card.likes,
-          owner: card.owner,
-          _id: card._id
-        })))
-
-      })
-      .catch(err => console.log(err));
-  }, [])
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      setCards(newCards);
-    })
-    .catch(err => console.log(err));
-  }
-
-  function handleCardDelete(deletedCard) {
-    api.removeCard(deletedCard._id)
-    .then(cards.filter(card => card !== deletedCard))
-    .catch(err => console.log(err));
-  }
 
   return (
     <main>
@@ -56,23 +24,23 @@ function Main(props) {
       {/* Card */}
       <section className="elements">
         <ul className="card">
-          {
-            cards.map((card, index) =>
-              <Card
+          {props.cards.map((card, index) =>
+            <Card
               //passed into Card.js
-                key={index}
-                src={card.link}
-                name={card.name}
-                onCardClick={() => props.handleCardClick(card.link, card.name)}
-                likes={card.likes}
-                _id={card._id}
-                owner={card.owner}
-                onCardDelete={() => handleCardDelete(card)}
-                onDeleteClick={() => props.handleDeleteClick(card)}
-                onCardLike={() => handleCardLike(card)}
-              />
+              key={index}
+              card={card}
+              src={card.link}
+              name={card.name}
+              onCardClick={() => props.handleCardClick(card.link, card.name)}
+              likes={card.likes}
+              _id={card._id}
+              owner={card.owner}
+              //onDeleteClick={() => props.handleDeleteClick(card)}
+              onCardDelete={(card) => props.handleCardDelete(card)}
+              onCardLike={(card) => props.handleCardLike(card)}
+            />
 
-            )
+          )
           }
         </ul>
       </section>
